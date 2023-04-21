@@ -10,10 +10,10 @@ namespace Infrastructure.DataAccess.Repositories
         public QuestionRepository()
         {
             _questions = new List<Question>() {
-                new Question() { Id = 1, Text = "mbn", CategoryId = 1 },
-                new Question() { Id = 2, Text = "xyz", CategoryId = 1 },
-                new Question() { Id = 3, Text = "abc", CategoryId = 2 },
-                new Question() { Id = 4, Text = "efg", CategoryId = 2 },
+                new Question() { Id = 1, Text = "filosfia", CategoryId = 1 },
+                new Question() { Id = 2, Text = "historia", CategoryId = 1 },
+                new Question() { Id = 3, Text = "música", CategoryId = 2 },
+                new Question() { Id = 4, Text = "teatro", CategoryId = 2 },
             };
         }
 

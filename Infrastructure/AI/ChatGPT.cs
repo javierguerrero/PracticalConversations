@@ -28,10 +28,13 @@ namespace Infrastructure.AI
                     ""messages"": [
                         {
                             ""role"": ""user"",
-                            ""content"": ""genera una conversacion entre dos personas que estan hablando sobre el clima.""
+                            ""content"": ""{0}""
                         }
                     ]
                 }";
+
+
+                jsonObject = jsonObject.Replace("{0}", prompt);
 
                 var completionResponse = new CompletionResponse();
                 var content = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
