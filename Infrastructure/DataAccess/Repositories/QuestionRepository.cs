@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
 
-namespace Infrastructure
+namespace Infrastructure.DataAccess.Repositories
 {
     public class QuestionRepository : IQuestionRepository
     {
@@ -17,11 +17,16 @@ namespace Infrastructure
             };
         }
 
-        public async Task<IEnumerable<Question>> GetQuestionAsync(int categoryId)
+        public async Task<IEnumerable<Question>> GetQuestionsAsync(int categoryId)
         {
             return _questions
                 .Where(q => q.CategoryId == categoryId)
                 .ToList();
+        }
+
+        public  Question GetQuestionById(int id)
+        {
+            return _questions.Single(q => q.Id == id);
         }
     }
 }

@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 function FillQuestions(listCategoryCtrl, questionId) {
-    debugger
+    
     var questionList = $("#" + questionId);
     questionList.empty();
 
@@ -15,7 +15,7 @@ function FillQuestions(listCategoryCtrl, questionId) {
             if (questions != null && !jQuery.isEmptyObject(questions)) {
                 $.each(questions, function (index, question) {
                     questionList.append($('<option/>', {
-                        value: question.id,
+                        value: question.value,
                         text: question.text
                     }));
                 });

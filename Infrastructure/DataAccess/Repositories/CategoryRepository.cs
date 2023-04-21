@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
 
-namespace Infrastructure
+namespace Infrastructure.DataAccess.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {

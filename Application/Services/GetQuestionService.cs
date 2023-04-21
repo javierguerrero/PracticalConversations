@@ -4,18 +4,13 @@ using Domain.Interfaces.Services;
 
 namespace Application.Services
 {
-    public class GetQuestionsService : IGetQuestionsService
+    public class GetQuestionService : IGetQuestionService
     {
         private readonly IQuestionRepository _repository;
 
-        public GetQuestionsService(IQuestionRepository repository)
+        public GetQuestionService(IQuestionRepository repository)
         {
             _repository = repository;
-        }
-
-        public async Task<IEnumerable<Question>> GetQuestions(int categoryId)
-        {
-            return await _repository.GetQuestionsAsync(categoryId);
         }
 
         public Question GetQuestion(int questionId)

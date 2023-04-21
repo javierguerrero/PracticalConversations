@@ -22,6 +22,8 @@ namespace Application
             services.AddScoped<IMapperService, MapperService>();
             services.AddScoped<IGetAllCategoriesService, GetAllCategoriesService>();
             services.AddScoped<IGetQuestionsService, GetQuestionsService>();
+            services.AddScoped<IGetQuestionService, GetQuestionService>();
+            services.AddScoped<IGenerateConversationService, GenerateConversationService>();
 
             return services;
         }

@@ -14,17 +14,24 @@ namespace WebUI.Controllers
         private readonly IMapperService _mapperService;
         private readonly IGetAllCategoriesService _getAllCategoriesService;
         private readonly IGetQuestionsService _getQuestionsService;
+        private readonly IGetQuestionService _getQuestionService;
+        private readonly IGenerateConversationService _generateConversationService;
 
         public HomeController(
             ILogger<HomeController> logger,
             IMapperService mapperService,
             IGetAllCategoriesService getAllCategoriesService,
-            IGetQuestionsService getQuestionsService)
+            IGetQuestionsService getQuestionsService,
+            IGetQuestionService getQuestionService,
+            IGenerateConversationService generateConversationService
+            )
         {
             _logger = logger;
             _mapperService = mapperService;
             _getAllCategoriesService = getAllCategoriesService;
             _getQuestionsService = getQuestionsService;
+            _getQuestionService = getQuestionService;
+            _generateConversationService = generateConversationService;
         }
 
         public async Task<IActionResult> Index()
@@ -79,7 +86,10 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(HomeViewModel model)
         {
-            var selectedCategory = model.SelectedCategory;
+            var selectedQuestion = model.SelectedQuestion;
+            var question = _getQuestionService.GetQuestion(Convert.ToInt32(selectedQuestion));
+            var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
+            var foo = await _generateConversationService.GenerateConversation(prompt);
 
             return RedirectToAction("Index");
         }

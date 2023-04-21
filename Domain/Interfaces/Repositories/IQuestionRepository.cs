@@ -4,6 +4,7 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IQuestionRepository
     {
-        Task<IEnumerable<Question>> GetQuestionAsync(int categoryId);
+        Task<IEnumerable<Question>> GetQuestionsAsync(int categoryId);
+        Question GetQuestionById(int id);
     }
 }
