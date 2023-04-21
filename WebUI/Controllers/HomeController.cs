@@ -87,12 +87,19 @@ namespace WebUI.Controllers
         public async Task<IActionResult> Index(HomeViewModel model)
         {
             var selectedQuestion = model.SelectedQuestion;
+            //TODO: GetCategory
+
             var question = _getQuestionService.GetQuestion(Convert.ToInt32(selectedQuestion));
             var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
             var conversation = await _generateConversationService.GenerateConversation(prompt);
 
-            var viewModel = new ConversationViewModel();
-            viewModel.Content = conversation.Content;
+            var viewModel = new ConversationViewModel()
+            {
+                Category = "",
+                Question = question.Text,
+                Content = conversation.Content
+            };
+
             return View("Conversation", viewModel);
         }
 
