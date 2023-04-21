@@ -89,14 +89,11 @@ namespace WebUI.Controllers
             var selectedQuestion = model.SelectedQuestion;
             var question = _getQuestionService.GetQuestion(Convert.ToInt32(selectedQuestion));
             var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
-            var foo = await _generateConversationService.GenerateConversation(prompt);
+            var conversation = await _generateConversationService.GenerateConversation(prompt);
 
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            var viewModel = new ConversationViewModel();
+            viewModel.Content = conversation.Content;
+            return View("Conversation", viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
