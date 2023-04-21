@@ -1,0 +1,35 @@
+﻿@model WebUI.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Practical English Conversations</h1>
+    <p>Listen and practice your English through short dialogues.</p>
+</div>
+
+<form asp-controller="Home" asp-action="Index" method="post">
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select id="categoryId" class="form-select" asp-items="Model.CategoryList" asp-for="SelectedCategory" onchange="FillQuestions(this, 'questionId')">
+            <option value="-1">-- Select a category --</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Question</label>
+        <select id="questionId" class="form-select" asp-items="Model.QuestionList" asp-for="SelectedQuestion">
+            <option value="-1">-- Select a question --</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</form>
+
+
+
+
+
