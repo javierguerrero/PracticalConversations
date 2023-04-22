@@ -23,6 +23,7 @@ namespace Application
             services.AddScoped<IGetAllCategoriesService, GetAllCategoriesService>();
             services.AddScoped<IGetQuestionsService, GetQuestionsService>();
             services.AddScoped<IGetQuestionService, GetQuestionService>();
+            services.AddScoped<IGetCategoryService, GetCategoryService>();
             services.AddScoped<IGenerateConversationService, GenerateConversationService>();
 
             return services;

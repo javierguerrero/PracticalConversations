@@ -5,5 +5,6 @@ namespace Domain.Interfaces.Repositories
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> GetAllAsync();
+        Category GetCategoyById(int id);
     }
 }

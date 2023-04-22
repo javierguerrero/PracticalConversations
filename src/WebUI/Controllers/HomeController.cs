@@ -15,6 +15,7 @@ namespace WebUI.Controllers
         private readonly IGetAllCategoriesService _getAllCategoriesService;
         private readonly IGetQuestionsService _getQuestionsService;
         private readonly IGetQuestionService _getQuestionService;
+        private readonly IGetCategoryService _getCategoryService;
         private readonly IGenerateConversationService _generateConversationService;
 
         public HomeController(
@@ -23,7 +24,8 @@ namespace WebUI.Controllers
             IGetAllCategoriesService getAllCategoriesService,
             IGetQuestionsService getQuestionsService,
             IGetQuestionService getQuestionService,
-            IGenerateConversationService generateConversationService
+            IGenerateConversationService generateConversationService,
+            IGetCategoryService getCategoryService
             )
         {
             _logger = logger;
@@ -32,6 +34,7 @@ namespace WebUI.Controllers
             _getQuestionsService = getQuestionsService;
             _getQuestionService = getQuestionService;
             _generateConversationService = generateConversationService;
+            _getCategoryService = getCategoryService;
         }
 
         public async Task<IActionResult> Index()
@@ -86,16 +89,15 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(HomeViewModel model)
         {
-            var selectedQuestion = model.SelectedQuestion;
-            //TODO: GetCategory
+            var category = _getCategoryService.GetCategory(Convert.ToInt32(model.SelectedCategory));
+            var question = _getQuestionService.GetQuestion(Convert.ToInt32(model.SelectedQuestion));
 
-            var question = _getQuestionService.GetQuestion(Convert.ToInt32(selectedQuestion));
             var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
             var conversation = await _generateConversationService.GenerateConversation(prompt);
 
             var viewModel = new ConversationViewModel()
             {
-                Category = "",
+                Category = category.Name,
                 Question = question.Text,
                 Content = conversation.Content
             };

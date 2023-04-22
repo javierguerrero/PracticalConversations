@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
-using System.Reflection.Emit;
 
 namespace Infrastructure.DataAccess.Repositories
 {
@@ -330,8 +329,6 @@ namespace Infrastructure.DataAccess.Repositories
                 new Question() { Id = 298, CategoryId = 20, Text ="What are your thoughts about gay marriage?" },
                 new Question() { Id = 299, CategoryId = 20, Text ="Is marriage a thing of the past?" },
                 new Question() { Id = 300, CategoryId = 20, Text ="What do you think about people spending thousands of dollars on an extravagant wedding?" },
-
-
             };
         }
 

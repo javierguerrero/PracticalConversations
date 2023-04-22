@@ -85,5 +85,10 @@ namespace Infrastructure.DataAccess.Repositories
         {
             return _categories;
         }
+
+        public Category GetCategoyById(int id)
+        {
+            return _categories.Single(q => q.Id == id);
+        }
     }
 }
