@@ -9,6 +9,8 @@ This software guidebook provides an overview of the **Practical English Conversa
 - The infrastructure architecture and how the software is deployed.
 - Operational and support aspects of the application.
 
+URL: https://practical-conversations.azurewebsites.net/
+
 ## Context
 
 **PEC** es una herramienta para escuchar y practicar tu inglés a través conversaciones cortas.
