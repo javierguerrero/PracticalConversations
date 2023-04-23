@@ -45,6 +45,41 @@ namespace WebUI.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Index(HomeViewModel model)
+        {
+            if (Convert.ToInt32(model.SelectedCategory) == -1)
+                return RedirectToAction("Index");
+
+            var category = _getCategoryService.GetCategory(Convert.ToInt32(model.SelectedCategory));
+            var question = _getQuestionService.GetQuestion(Convert.ToInt32(model.SelectedQuestion));
+
+            var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
+            var conversation = await _generateConversationService.GenerateConversation(prompt);
+
+            var viewModel = new ConversationViewModel()
+            {
+                Category = category.Name,
+                Question = question.Text,
+                Content = conversation.Content
+            };
+
+            return View("Conversation", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetQuestionsByCategory(int categoryId)
+        {
+            var questions = await GetQuestions(categoryId);
+            return Json(questions);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
         private async Task<List<SelectListItem>> GetCategories()
         {
             var results = new List<SelectListItem>();
@@ -77,38 +112,6 @@ namespace WebUI.Controllers
             }
 
             return results;
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> GetQuestionsByCategory(int categoryId)
-        {
-            var questions = await GetQuestions(categoryId);
-            return Json(questions);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(HomeViewModel model)
-        {
-            var category = _getCategoryService.GetCategory(Convert.ToInt32(model.SelectedCategory));
-            var question = _getQuestionService.GetQuestion(Convert.ToInt32(model.SelectedQuestion));
-
-            var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
-            var conversation = await _generateConversationService.GenerateConversation(prompt);
-
-            var viewModel = new ConversationViewModel()
-            {
-                Category = category.Name,
-                Question = question.Text,
-                Content = conversation.Content
-            };
-
-            return View("Conversation", viewModel);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

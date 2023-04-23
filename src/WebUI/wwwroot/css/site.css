@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+/*Loading styles*/
+#loading {
+    text-align: center;
+    width: 25%;
+    margin: 0 auto;
+}
+    #loading .message {
+        font-size: 11px;
+    }

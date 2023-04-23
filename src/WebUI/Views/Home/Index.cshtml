@@ -30,6 +30,20 @@
 </form>
 
 
+<div id="loading" style="display:none">
+    <img src="~/img/spinner-1s-200px.gif" width="100" />
+    <p class="message">
+        Please wait while we generate the conversation using <strong>Artificial Intelligence (AI)</strong>. <br />
+        Thank you for your patience!
+    </p>
+</div>
 
 
-
+<script>
+    $(document).ready(function () {
+        $('form').submit(function () {
+            $('#loading').show();
+            $(this).hide();
+        });
+    });
+</script>
