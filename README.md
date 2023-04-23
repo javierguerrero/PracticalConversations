@@ -13,7 +13,7 @@ URL: https://practical-conversations.azurewebsites.net/
 
 ## Context
 
-**PEC** es una herramienta para escuchar y practicar tu inglés a través conversaciones cortas.
+**PEC** is a tool for practicing English through short conversations. The app generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
 
 ### Users
 
