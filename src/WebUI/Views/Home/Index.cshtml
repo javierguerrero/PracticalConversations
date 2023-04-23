@@ -23,7 +23,7 @@
         </select>
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" id="submit" class="btn btn-primary">
             Generate conversation
         </button>
     </div>
@@ -45,5 +45,14 @@
             $('#loading').show();
             $(this).hide();
         });
+
+        $("#submit").click(function () {
+            if ($("#categoryId").val() == "-1") {
+                alert("Please, select a category.");
+                return false;
+            }
+        });
+
+
     });
 </script>
