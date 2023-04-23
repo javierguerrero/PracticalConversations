@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This software guidebook provides an overview of the **Practical English Conversations (PEC)** application. It includes a summary of the following:
+This software guidebook provides an overview of the **Practical English Conversations** application. It includes a summary of the following:
 
 - The requirements, constraints and principles behind the solution.
 - The software architecture, including the high-level technology choices and structure of the software.
@@ -13,7 +13,9 @@ URL: https://practical-conversations.azurewebsites.net/
 
 ## Context
 
-**PEC** is a tool for practicing English through short conversations. The app generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
+**Practical English Conversations (PEC)** is a tool for practicing English through short conversations. The app generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
+
+![](https://drive.google.com/uc?id=1ojvjQnVSp0ar5kMtHLIBt_-ZzkjEen8P)
 
 ### Users
 
@@ -22,7 +24,7 @@ URL: https://practical-conversations.azurewebsites.net/
 ### External Systems
 
 1. OpenAI API
-2. Amazon Polly
+2. Google Text-to-Speech
 
 ## Functional Overview
 
