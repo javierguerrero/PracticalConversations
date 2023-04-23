@@ -30,7 +30,7 @@ namespace Infrastructure.DataAccess.Repositories
                     new Category() { Id = 18, Name = "Countries"},
                     new Category() { Id = 19, Name = "Current Events"},
                     new Category() { Id = 20, Name = "Dating and Marriage"},
-                    new Category() { Id = 21, Name = "Drinking"},
+                    new Category() { Id = 21, Name = "Drinking Alcohol"},
                     new Category() { Id = 22, Name = "Eating Out"},
                     new Category() { Id = 23, Name = "The Environment"},
                     new Category() { Id = 24, Name = "Exercise"},
