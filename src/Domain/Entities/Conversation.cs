@@ -2,6 +2,6 @@
 {
     public class Conversation
     {
-        public string Content { get; set; }
+        public string RawData { get; set; }
     }
 }

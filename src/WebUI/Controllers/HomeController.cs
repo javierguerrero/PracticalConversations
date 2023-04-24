@@ -61,7 +61,7 @@ namespace WebUI.Controllers
             {
                 Category = category.Name,
                 Question = question.Text,
-                Content = conversation.Content
+                RawData = conversation.RawData
             };
 
             return View("Conversation", viewModel);

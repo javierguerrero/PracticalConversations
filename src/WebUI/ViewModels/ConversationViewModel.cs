@@ -4,6 +4,6 @@
     {
         public string Category { get; set; }
         public string Question { get; set; }
-        public string Content { get; set; }
+        public string RawData { get; set; }
     }
 }

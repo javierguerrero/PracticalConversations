@@ -15,7 +15,7 @@ URL: https://practical-conversations.azurewebsites.net/
 
 **Practical English Conversations (PEC)** is a tool for practicing English through short conversations. The app generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
 
-![](https://drive.google.com/uc?id=1ojvjQnVSp0ar5kMtHLIBt_-ZzkjEen8P)
+![](https://drive.google.com/uc?id=1okfJsxle5fxlpleZg81x_dR984MvEVrN)
 
 ### Users
 
@@ -59,8 +59,6 @@ https://aws.amazon.com/polly/
 
 ```
 
-### Reproducir conversación
-
 ## Quality Attributes
 
 This section provides information about the desired quality attributes (non-functional requirements) of the application.
@@ -103,3 +101,25 @@ The strategy for automated testing is to use automated unit and component tests.
 ### Configuration
 
 All configuration needed by components is externalised into a settings.json file, which is held outside of the deployment files created by the build process. This means that builds can be migrated from development, testing and into production without change.
+
+## Software Architecture
+
+This section provides an overview of the **PEC** software architecture.
+
+![](https://drive.google.com/uc?id=1okIcOPlnTI9U9f-JOniSMSzDJxr0TWQK)
+
+## Infrastructure Architecture
+
+This section provides information about the infrastructure architecture of the **PEC**.
+
+### Live environment
+
+The live environment is very simple. We are going to use the following Azure Cloud Services:
+
+- **Azure App Service**: Azure App Service is an HTTP-based service for hosting web applications, REST APIs, and mobile back ends.
+
+## Deployment
+
+This section provides information about the mapping between the **software architecture** and the **infrastructure architecture**. We use a deployment diagram to illustrate how instances of software systems and/or containers in the static model are deployed on to the infrastructure within a given **deployment environment** (e.g. production, staging, development, etc).
+
+![](https://drive.google.com/uc?id=1olofdhS_S1JiJaP01DhclX2bOKI0x7SN)
