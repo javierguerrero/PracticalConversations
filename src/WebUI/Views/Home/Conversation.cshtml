@@ -18,5 +18,13 @@
 </div>
 
 <div class="mb-3" style="white-space:pre-line;">
-    <p>@Model.Conversation.RawData</p>
+    @foreach (var turn in Model.Conversation.Turns)
+    {
+        <div class="line">
+            @turn.Speaker: <span data-message="@turn.Message">@turn.Message</span> 
+@*            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-play"></span> Play
+            </button>*@
+        </div>
+    }
 </div>

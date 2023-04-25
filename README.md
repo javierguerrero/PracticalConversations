@@ -55,7 +55,10 @@ Quiero convertir la conversación de texto a voz
 Para escuchar la pronunciación de las palabras
 
 https://cloud.google.com/text-to-speech
-https://aws.amazon.com/polly/
+https://cloud.google.com/text-to-speech/docs/basics
+https://cloud.google.com/text-to-speech/docs/quickstarts
+https://cloud.google.com/text-to-speech/docs/libraries#client-libraries-install-csharp
+
 
 ```
 
