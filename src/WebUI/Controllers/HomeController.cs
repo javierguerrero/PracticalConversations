@@ -54,14 +54,14 @@ namespace WebUI.Controllers
             var category = _getCategoryService.GetCategory(Convert.ToInt32(model.SelectedCategory));
             var question = _getQuestionService.GetQuestion(Convert.ToInt32(model.SelectedQuestion));
 
-            var prompt = $"Generar una conversación en inglés entre dos personas que hablen sobre {question.Text}";
+            var prompt = $"Generar una conversación en inglés entre dos personas (Person 1 y Person 2) que hablen sobre: {question.Text}";
             var conversation = await _generateConversationService.GenerateConversation(prompt);
 
             var viewModel = new ConversationViewModel()
             {
                 Category = category.Name,
                 Question = question.Text,
-                RawData = conversation.RawData
+                Conversation = _mapperService.ConvertToDto(conversation)
             };
 
             return View("Conversation", viewModel);

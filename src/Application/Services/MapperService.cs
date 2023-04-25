@@ -18,9 +18,19 @@ namespace Application.Services
             _autoMapper = autoMapper;
         }
 
+        public ConversationDto ConvertToDto(Conversation entity)
+        {
+            return _autoMapper.Map<ConversationDto>(entity); 
+        }
+
+        public Conversation ConvertToEntity(ConversationDto dto)
+        {
+            return _autoMapper.Map<Conversation>(dto);
+        }
+
         public CategoryDto ConvertToDto(Category entity)
         {
-            return _autoMapper.Map<CategoryDto>(entity); 
+            return _autoMapper.Map<CategoryDto>(entity);
         }
 
         public Category ConvertToEntity(CategoryDto dto)

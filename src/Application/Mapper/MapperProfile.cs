@@ -8,7 +8,9 @@ namespace Application.Mapper
     {
         public MapperProfile()
         {
-            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Turn, TurnDto>();
+            CreateMap<Conversation, ConversationDto>();
         }
     }
 }

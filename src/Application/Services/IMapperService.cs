@@ -12,5 +12,8 @@ namespace Application.Services
     {
         Category ConvertToEntity(CategoryDto dto);
         CategoryDto ConvertToDto(Category entity);
+
+        Conversation ConvertToEntity(ConversationDto dto);
+        ConversationDto ConvertToDto(Conversation entity);
     }
 }
