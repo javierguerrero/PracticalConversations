@@ -3,7 +3,10 @@ using Domain.Interfaces.Services;
 using Google.Cloud.TextToSpeech.V1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection.Metadata;
 using WebUI.Models;
 using WebUI.ViewModels;
 
@@ -43,31 +46,6 @@ namespace WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var credentialPath = _configuration["GoogleTextToSpeech:CredentialPath"];
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
-            TextToSpeechClient GAPIClient = TextToSpeechClient.Create();
-            SynthesisInput textInput = new SynthesisInput { Text = "Yes, they definitely complement each other." };
-            VoiceSelectionParams vsParams = new VoiceSelectionParams()
-            {
-                LanguageCode = "en-US",
-                SsmlGender = SsmlVoiceGender.Male
-            };
-            AudioConfig config = new AudioConfig { AudioEncoding = AudioEncoding.Linear16 };
-            SynthesizeSpeechResponse response = GAPIClient.SynthesizeSpeech(new SynthesizeSpeechRequest
-            {
-                Input = textInput,
-                Voice = vsParams,
-                AudioConfig = config
-            });
-
-            using (Stream output = new FileStream(@"C:\\DATA\\Proyectos\\PracticalConversations\\src\\WebUI\\Uploads\\abc.wav", FileMode.Create))
-            {
-                response.AudioContent.WriteTo(output);
-            }
-
-
-
-            /*//////////////*/
             var viewModel = new HomeViewModel();
             viewModel.CategoryList = await GetCategories();
 
@@ -101,6 +79,32 @@ namespace WebUI.Controllers
         {
             var questions = await GetQuestions(categoryId);
             return Json(questions);
+        }
+
+        [HttpGet("{text}")]
+        public IActionResult Stream(string text, string gender)
+        {
+            var credentialPath = _configuration["GoogleTextToSpeech:CredentialPath"];
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
+            TextToSpeechClient GAPIClient = TextToSpeechClient.Create();
+            SynthesisInput textInput = new SynthesisInput { Text = text };
+            VoiceSelectionParams vsParams = new VoiceSelectionParams()
+            {
+                LanguageCode = "en-US",
+                SsmlGender = SsmlVoiceGender.Male
+            };
+            AudioConfig config = new AudioConfig { AudioEncoding = AudioEncoding.Mp3 };
+            SynthesizeSpeechResponse response = GAPIClient.SynthesizeSpeech(new SynthesizeSpeechRequest
+            {
+                Input = textInput,
+                Voice = vsParams,
+                AudioConfig = config
+            });
+
+            MemoryStream output = new MemoryStream();
+            response.AudioContent.WriteTo(output);
+
+            return File(output.ToArray(), "audio/mpeg");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -21,10 +21,15 @@
     @foreach (var turn in Model.Conversation.Turns)
     {
         <div class="line">
-            @turn.Speaker: <span data-message="@turn.Message">@turn.Message</span> 
-@*            <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-play"></span> Play
-            </button>*@
+            @turn.Speaker: <span data-message="@turn.Message">@turn.Message</span>
+
+            <audio controls>
+                <source src="@Url.Action("Stream", "Home", new{ text = turn.Message })" type="audio/mpeg" />
+            </audio>
+
         </div>
     }
 </div>
+
+
+
