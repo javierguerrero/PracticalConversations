@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Domain.Interfaces.Services;
+using Google.Cloud.TextToSpeech.V1;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly ILogger<HomeController> _logger;
         private readonly IMapperService _mapperService;
         private readonly IGetAllCategoriesService _getAllCategoriesService;
@@ -19,6 +21,7 @@ namespace WebUI.Controllers
         private readonly IGenerateConversationService _generateConversationService;
 
         public HomeController(
+            IConfiguration configuration,
             ILogger<HomeController> logger,
             IMapperService mapperService,
             IGetAllCategoriesService getAllCategoriesService,
@@ -28,6 +31,7 @@ namespace WebUI.Controllers
             IGetCategoryService getCategoryService
             )
         {
+            _configuration = configuration;
             _logger = logger;
             _mapperService = mapperService;
             _getAllCategoriesService = getAllCategoriesService;
@@ -39,6 +43,31 @@ namespace WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var credentialPath = _configuration["GoogleTextToSpeech:CredentialPath"];
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
+            TextToSpeechClient GAPIClient = TextToSpeechClient.Create();
+            SynthesisInput textInput = new SynthesisInput { Text = "Yes, they definitely complement each other." };
+            VoiceSelectionParams vsParams = new VoiceSelectionParams()
+            {
+                LanguageCode = "en-US",
+                SsmlGender = SsmlVoiceGender.Male
+            };
+            AudioConfig config = new AudioConfig { AudioEncoding = AudioEncoding.Linear16 };
+            SynthesizeSpeechResponse response = GAPIClient.SynthesizeSpeech(new SynthesizeSpeechRequest
+            {
+                Input = textInput,
+                Voice = vsParams,
+                AudioConfig = config
+            });
+
+            using (Stream output = new FileStream(@"C:\\DATA\\Proyectos\\PracticalConversations\\src\\WebUI\\Uploads\\abc.wav", FileMode.Create))
+            {
+                response.AudioContent.WriteTo(output);
+            }
+
+
+
+            /*//////////////*/
             var viewModel = new HomeViewModel();
             viewModel.CategoryList = await GetCategories();
 
