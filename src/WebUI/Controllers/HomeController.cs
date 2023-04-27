@@ -81,8 +81,8 @@ namespace WebUI.Controllers
             return Json(questions);
         }
 
-        [HttpGet("{text}")]
-        public IActionResult Stream(string text, string gender)
+        [HttpGet]
+        public IActionResult Stream([FromQuery] string text, [FromQuery] string gender)
         {
             var credentialPath = _configuration["GoogleTextToSpeech:CredentialPath"];
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", credentialPath);
@@ -91,7 +91,7 @@ namespace WebUI.Controllers
             VoiceSelectionParams vsParams = new VoiceSelectionParams()
             {
                 LanguageCode = "en-US",
-                SsmlGender = SsmlVoiceGender.Male
+                Name = (gender == "Female") ? "en-US-Standard-H" : "en-US-Standard-A"
             };
             AudioConfig config = new AudioConfig { AudioEncoding = AudioEncoding.Mp3 };
             SynthesizeSpeechResponse response = GAPIClient.SynthesizeSpeech(new SynthesizeSpeechRequest

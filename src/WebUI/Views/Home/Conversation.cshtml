@@ -23,8 +23,11 @@
         <div class="line">
             @turn.Speaker: <span data-message="@turn.Message">@turn.Message</span>
 
+            @{
+                var speakerGender = (turn.Speaker == "Person 1") ? "Male" : "Female";
+            }
             <audio controls>
-                <source src="@Url.Action("Stream", "Home", new{ text = turn.Message })" type="audio/mpeg" />
+                <source src="@Url.Action("Stream", "Home", new{ text = turn.Message, gender = speakerGender })" type="audio/mpeg" />
             </audio>
 
         </div>
