@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This software guidebook provides an overview of the **Practical English Conversations** application. It includes a summary of the following:
+This software guidebook provides an overview of the **Practical English Conversations (PEC)** website. It includes a summary of the following:
 
 - The requirements, constraints and principles behind the solution.
 - The software architecture, including the high-level technology choices and structure of the software.
@@ -13,18 +13,18 @@ URL: https://practical-conversations.azurewebsites.net/
 
 ## Context
 
-**Practical English Conversations (PEC)** is a tool for practicing English through short conversations. The app generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
+**PEC** website is a tool for practicing English through short conversations. The application generates dialogues automatically using Artificial Intelligence (AI) based on different conversation topics. It can also convert text to spoken audio using natural AI voices to enhance the learning experience.
 
 ![](https://drive.google.com/uc?id=1okfJsxle5fxlpleZg81x_dR984MvEVrN)
 
 ### Users
 
-1. Anonymous user
+1. **Anonymous user:** Anybody with a web browser can view conversations on the site.
 
 ### External Systems
 
-1. OpenAI API
-2. Google Text-to-Speech
+1. **OpenAI API:** The OpenAI API can be applied to virtually any task that involves understanding or generating natural language, code, or images.
+2. **Google Text-to-Speech:** Text-to-Speech allows developers to create natural-sounding, synthetic human speech as playable audio.
 
 ## Functional Overview
 
@@ -33,7 +33,7 @@ URL: https://practical-conversations.azurewebsites.net/
 ```
 Como usuario
 Quiero generar conversaciones en inglés de un determinado tema
-Para mis ejercicios de speaking
+Para mis ejercicios de listening/speaking
 
     1. Rule: Selección de tema específico
         a. Javier elige categoría 'Animals'
@@ -54,13 +54,16 @@ Como usuario
 Quiero convertir la conversación de texto a voz
 Para escuchar la pronunciación de las palabras
 
-https://cloud.google.com/text-to-speech
-https://cloud.google.com/text-to-speech/docs/basics
-https://cloud.google.com/text-to-speech/docs/quickstarts
-https://cloud.google.com/text-to-speech/docs/libraries#client-libraries-install-csharp
-https://console.cloud.google.com/apis/api/texttospeech.googleapis.com/metrics?project=practicalenglishconversations
-https://developers.google.com/workspace/guides/create-credentials
-
+    1. Rule: Reprodución de audio individual de cada turno
+        a. Generación de conversación con participantes 'Person 1' y 'Person 2'
+        b. Reproducción audio de 'Person 1', turno 1
+        c. Reproducción audio de 'Person 2', turno 1
+        d. Reproducción audio de 'Person 1', turno 2
+        e. Reproducción audio de 'Person 2', turno 2
+    2. Rule: Diferentes voces en la conversación
+        a. Generación de conversación con participantes 'Person 1' y 'Person 2'
+        b. Reproducción de voz masculina para 'Person 1'
+        c. Reproducción de voz femenina para 'Person 2'
 ```
 
 ## Quality Attributes
@@ -82,6 +85,7 @@ The **PEC** should work consistently across the following browsers:
 - Chrome
 - Edge
 - Firefox
+- Safari
 
 ## Constraints
 
@@ -106,6 +110,65 @@ The strategy for automated testing is to use automated unit and component tests.
 
 All configuration needed by components is externalised into a settings.json file, which is held outside of the deployment files created by the build process. This means that builds can be migrated from development, testing and into production without change.
 
+### Logging
+
+- **Logging Framework for .NET:** NLog
+- **Use an optimal structured log format:** By using a structured log with an optimal format, developers ensure that log data is readable, uniform, and easily searchable.
+
+```
+2023-03-07T12:15:30+00:00 [INFO] PaymentService - Payment processed successfully for Order #12345
+```
+
+- **Do NOT log sensitive information:** API keys, passwords, credentials and more fall under this category. It’s far to risky to log anything sensitive as it increases the chances of it leaking and becoming a security problem
+
+```
+❌
+logger.error("Unable to log in", {request});
+
+✅
+logger.error("Unable to log in", {
+  username: request.user,
+  password: request.pass ? "[HIDDEN]" : null,
+// any additional context needed?
+})
+```
+
+- **Be specific in your messages:** Logging is only as beneficial as the message in the log, therefor, be specific.
+
+```
+❌
+logger.info("We're starting!")
+...
+logger.info("task complete!")
+
+✅
+logger.info("Starting task", {
+  name: taskName,
+  params: params,
+  startTime: startTime
+});
+
+logger.info("task complete", {
+  response: output.response,
+  event: {
+    action: taskName,
+    duration: currentTime - startTime
+  }
+})
+```
+
+- **Log all errors:** Logs are a best friend to those debugging, so, as a programmer if you find yourself in a situation writing error handling, make sure you always log the error before throwing a different one for the user. If we don’t log the original error then we could find ourselves with no context as too why we're throwing a `SystemError`.
+
+```
+catch(err)
+{
+    logger.error('An error occured', {error: err, args: args});
+    throw new SystemError('Unable to process request');
+}
+```
+
+### Dependency injection
+
 ## Software Architecture
 
 This section provides an overview of the **PEC** software architecture.
@@ -127,3 +190,9 @@ The live environment is very simple. We are going to use the following Azure Clo
 This section provides information about the mapping between the **software architecture** and the **infrastructure architecture**. We use a deployment diagram to illustrate how instances of software systems and/or containers in the static model are deployed on to the infrastructure within a given **deployment environment** (e.g. production, staging, development, etc).
 
 ![](https://drive.google.com/uc?id=1olofdhS_S1JiJaP01DhclX2bOKI0x7SN)
+
+## Links
+
+- https://cloud.google.com/text-to-speech
+- https://platform.openai.com
+- https://portal.azure.com
